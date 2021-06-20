@@ -1,8 +1,25 @@
-from . import models
+from passlib.context import CryptContext
+
+from .models import User
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_password_hash(password):
+    return pwd_context.hash(password)
+
+
+async def register_user(data):
+    pass
 
 
 async def create_db_values():
-    user = models.User.create(
+    user = User.create(
         first_name="Prabin",
         last_name="S",
         email="xyz@gmail.com",

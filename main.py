@@ -1,17 +1,24 @@
+# python modules
+import time
+import logging  # TODO
+
 # third-party modules
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, status
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 # user-defined modules
 from settings.base import conn
 from settings.base import settings
+# import all routers here
 from users import routers as user_routers
-# TODO: import all routers here
 
 
 # app specifications
-app = FastAPI(title="MyApp", description="API's for MyApp", version="0.1")
+app = FastAPI(title="MyApp", description="APIs for MyApp", version="0.1")
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,6 +27,28 @@ app.add_middleware(
     allow_methods=settings.ALLOWED_METHODS,
     allow_headers=settings.ALLOWED_HEADERS,
 )
+
+
+# TODO
+# @app.middleware("http")
+# async def request_logger(request: Request, call_next):
+#     start_time = time.time()
+#     response = await call_next(request)
+#     process_time = time.time() - start_time
+#     print(process_time)
+#     return response
+
+
+# TODO
+# Authentication Middleware
+
+
+# @app.exception_handler(RequestValidationError)
+# async def validation_exception_handler(request: Request, exc: RequestValidationError):
+#     return JSONResponse(
+#         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+#         content=jsonable_encoder({"detail": exc.errors(), "body": exc.body}),
+#     )
 
 
 @app.on_event("startup")
@@ -36,8 +65,8 @@ async def shutdown():
         conn.close()
 
 
+# register all router objects here
 app.include_router(user_routers.router)
-# TODO: register all router objects here
 
 
 if __name__ == "__main__":
