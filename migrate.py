@@ -2,7 +2,6 @@
 from settings.base import conn
 from users.models import User
 
-
 # Initialize Connection
 conn.connect()
 

@@ -48,20 +48,19 @@ password1 = input("Enter password: ").strip()
 password2 = input("Confirm password: ").strip()
 
 # Validate Input Data
-email, password = userdata_validator(firstname, lastname, email, password1, password2)
+email, password = userdata_validator(firstname, lastname, email, password1,
+                                     password2)
 
 # Initialize Connection
 conn.connect()
 
 # Create SuperUser
-User.create(
-    firstname=firstname,
-    lastname=lastname,
-    email=email,
-    is_superuser=True,
-    is_active=True,
-    password=password
-)
+User.create(firstname=firstname,
+            lastname=lastname,
+            email=email,
+            is_superuser=True,
+            is_active=True,
+            password=password)
 
 # Close Connection
 conn.close()

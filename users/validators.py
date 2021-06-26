@@ -18,13 +18,15 @@ class RegisterUserRequest(BaseModel):
         if len(v) < 3:
             raise ValueError('firstname must contain at least 2 letters.')
         if len(v) > 30:
-            raise ValueError('firstname must not contain more than 30 letters.')
+            raise ValueError(
+                'firstname must not contain more than 30 letters.')
         return v
 
     @validator('middlename')
     def middlename_validation(cls, v):
         if len(v) > 30:
-            raise ValueError('middlename must not contain more than 30 letters.')
+            raise ValueError(
+                'middlename must not contain more than 30 letters.')
         return v
 
     @validator('lastname')
@@ -44,5 +46,6 @@ class RegisterUserRequest(BaseModel):
         if len(v) < 8:
             raise ValueError('password must contain at least 8 characters.')
         if len(v) > 16:
-            raise ValueError('password must not contain more than 16 characters.')
+            raise ValueError(
+                'password must not contain more than 16 characters.')
         return v

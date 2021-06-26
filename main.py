@@ -16,7 +16,6 @@ from settings.base import settings
 # import all routers here
 from users import routers as user_routers
 
-
 # app specifications
 app = FastAPI(title="MyApp", description="APIs for MyApp", version="0.1")
 
@@ -28,7 +27,6 @@ app.add_middleware(
     allow_headers=settings.ALLOWED_HEADERS,
 )
 
-
 # TODO
 # @app.middleware("http")
 # async def request_logger(request: Request, call_next):
@@ -38,10 +36,8 @@ app.add_middleware(
 #     print(process_time)
 #     return response
 
-
 # TODO
 # Authentication Middleware
-
 
 # @app.exception_handler(RequestValidationError)
 # async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -68,7 +64,9 @@ async def shutdown():
 # register all router objects here
 app.include_router(user_routers.router)
 
-
 if __name__ == "__main__":
-    uvicorn.run("main:app", host=settings.HOST, port=settings.PORT,
-                reload=settings.RELOAD, workers=settings.WORKERS)
+    uvicorn.run("main:app",
+                host=settings.HOST,
+                port=settings.PORT,
+                reload=settings.RELOAD,
+                workers=settings.WORKERS)
